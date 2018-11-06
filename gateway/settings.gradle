@@ -1,0 +1,5 @@
+rootProject.name = 'gateway'
+
+include 'api-gateway'
+include 'apis:blue'
+include 'apis:green'

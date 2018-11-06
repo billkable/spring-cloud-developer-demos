@@ -1,0 +1,37 @@
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+server:
+  port: 8180
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+      - id: v1_route
+        uri: http://localhost:8181
+        predicates:
+        - Header=api-version, V1.2.8
+#        filters:
+#        - name: RequestRateLimiter
+#          args:
+#            redis-rate-limiter.replenishRate: 1
+#            redis-rate-limiter.burstCapacity: 1
+      - id: v2_route
+        uri: http://localhost:8182
+        predicates:
+        - Header=api-version, V2.0.0
+#        filters:
+#        - name: RequestRateLimiter
+#          args:
+#            redis-rate-limiter.replenishRate: 10
+#            redis-rate-limiter.burstCapacity: 20
